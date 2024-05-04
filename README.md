@@ -21,21 +21,47 @@ The data went through a rigorous training process, including:
 * **Brain Extractor:** We cropped each image to focus solely on the brain, the vital area of interest.
 * **Standardization:** Images were resized and normalized to ensure consistency for the AI model.
 * **Data Split:** The data was divided strategically for training, validation, and testing purposes.
+* **Neural Network Architecture**
 
-**Building the Brain Tumor Fighter:**
+![Neural Network Architecture](convnet_architecture.jpg)
 
-We opted for a custom-designed neural network architecture, considering the data size and computational limitations. 
+**Understanding the architecture:**<br>
+Each input x (image) has a shape of (240, 240, 3) and is fed into the neural network. And, it goes through the following layers:<br>
 
-**Why Not Go Pre-Built?**
+1. A Zero Padding layer with a pool size of (2, 2).
+2. A convolutional layer with 32 filters, with a filter size of (7, 7) and a stride equal to 1.
+3. A batch normalization layer to normalize pixel values to speed up computation.
+4. A ReLU activation layer.
+5. A Max Pooling layer with f=4 and s=4.
+6. A Max Pooling layer with f=4 and s=4, same as before.
+7. A flatten layer in order to flatten the 3-dimensional matrix into a one-dimensional vector.
+8. A Dense (output unit) fully connected layer with one neuron with a sigmoid activation (since this is a binary classification task).
 
-We experimented with pre-trained models like ResNet50 and VGG-16, but they proved too complex for our data size. Our custom model, trained from scratch, achieved impressive results while keeping things efficient.
+**Why this architecture?**<br>
 
-**The Champion Emerges!**
+Firstly, I applied transfer learning using a ResNet50 and vgg-16, but these models were too complex to the data size and were overfitting. Of course, you may get good results applying transfer learning with these models using data augmentation. But, I'm using training on a computer with 6th generation Intel i7 CPU and 8 GB memory. So, I had to take into consideration computational complexity and memory limitations.<br>
 
-After 24 rounds of training, we identified the best performing model, achieving:
+So why not try a simpler architecture and train it from scratch. And it worked :)
 
-* **88.7% Accuracy** on identifying brain tumors in unseen test data.
-* **0.88 F1 Score** indicating a strong balance between precision and recall.
+# Training the model
+The model was trained for 24 epochs and these are the loss & accuracy plots:
+
+
+![Loss plot](Loss.PNG)
+
+
+![Accuracy plot](Accuracy.PNG)
+
+The best validation accuracy was achieved on the 23rd iteration.
+
+# Results
+
+Now, the best model (the one with the best validation accuracy) detects brain tumor with:<br>
+
+**88.7%** accuracy on the **test set**.<br>
+**0.88** f1 score on the **test set**.<br>
+These resutls are very good considering that the data is balanced.
+
 
 **Performance Breakdown:**
 
