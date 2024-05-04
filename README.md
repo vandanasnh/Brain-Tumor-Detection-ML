@@ -21,7 +21,7 @@ The data went through a rigorous training process, including:
 * **Brain Extractor:** We cropped each image to focus solely on the brain, the vital area of interest.
 * **Standardization:** Images were resized and normalized to ensure consistency for the AI model.
 * **Data Split:** The data was divided strategically for training, validation, and testing purposes.
-* **Neural Network Architecture**
+
 
 ![Neural Network Architecture](convnet_architecture.jpg)
 
